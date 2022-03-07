@@ -1,3 +1,4 @@
+from ckeditor.fields import RichTextField
 from django.db import models
 
 
@@ -34,7 +35,7 @@ class Article(models.Model):
     image = models.ImageField(verbose_name='Изображение')
     preview_description = models.TextField(max_length=500, verbose_name='Превью описание',
                                            help_text='короткое описание для превью публикации')
-    description = models.TextField(verbose_name='Описание')
+    description = RichTextField(verbose_name='Описание')
     category = models.ForeignKey(to=ArticleCategory, related_name='articles', on_delete=models.CASCADE)
     tags = models.ManyToManyField(to=ArticleTag, related_name='articles')
 

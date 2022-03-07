@@ -15,13 +15,14 @@ Including another URLconf
 """
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf import settings
 from django.views.generic import TemplateView
 
 from apps.blog.views import ArticleListView, ArticleDetailView
 
 urlpatterns = [
+    path(r'^ckeditor/', include('ckeditor_uploader.urls')),
     path('admin/', admin.site.urls),
     path('blog/', ArticleListView.as_view(), name='article-list-url'),
     path('blog/<int:pk>/', ArticleDetailView.as_view(), name='article-detail-url'),
