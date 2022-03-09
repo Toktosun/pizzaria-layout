@@ -45,3 +45,19 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class ArticleComment(models.Model):
+    """Модель для коментариев публикации"""
+
+    text = models.TextField(verbose_name='Текст')
+    article = models.ForeignKey(to=Article, on_delete=models.CASCADE,
+                                related_name='comments')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = 'Комментарии публикаций'
+        verbose_name = 'Комментарий публикации'
+
+    def __str__(self):
+        return f'Комментарий для публикации с id:{self.article_id}'

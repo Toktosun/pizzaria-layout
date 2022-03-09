@@ -19,13 +19,15 @@ from django.urls import path, include
 from django.conf import settings
 from django.views.generic import TemplateView
 
-from apps.blog.views import ArticleListView, ArticleDetailView
+from apps.blog.views import ArticleListView, ArticleTemplateView, \
+    add_comment_view
 
 urlpatterns = [
     path(r'^ckeditor/', include('ckeditor_uploader.urls')),
     path('admin/', admin.site.urls),
     path('blog/', ArticleListView.as_view(), name='article-list-url'),
-    path('blog/<int:pk>/', ArticleDetailView.as_view(), name='article-detail-url'),
+    path('blog/<int:pk>/', ArticleTemplateView.as_view(), name='article-detail-url'),
+    path('blog/<int:pk>/comment-add/', add_comment_view, name='add-article-comment-url'),
 ]
 
 if settings.DEBUG:

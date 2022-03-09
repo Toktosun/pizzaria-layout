@@ -1,4 +1,4 @@
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, TemplateView
 
@@ -20,12 +20,18 @@ class ArticleListView(ListView):
     paginate_by = 9
 
 
-class ArticleDetailView(DetailView):
+class ArticleTemplateView(TemplateView):
     """Показ одной публикации"""
     template_name = 'blog-single.html'
-    model = Article
-    slug_field = 'pk'
-    context_object_name = 'article'
+
+    def get_context_data(self, **kwargs):
+        context = dict()
+        try:
+            article = Article.objects.get(id=kwargs['pk'])
+        except Article.DoesNotExist:
+            raise Http404
+        context['article'] = article
+        return context
 
 
 # альтернатива для ArticleDetailView
@@ -40,3 +46,9 @@ class ArticleDetailView(DetailView):
 #         except Article.DoesNotExist:
 #             raise Http404
 #         return context
+
+
+def add_comment_view(request, pk):
+    if request.method == 'POST':
+        print(request.POST)
+        return HttpResponse(content='GOOD!')
