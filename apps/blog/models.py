@@ -51,6 +51,8 @@ class ArticleComment(models.Model):
     """Модель для коментариев публикации"""
 
     text = models.TextField(verbose_name='Текст')
+    user_name = models.CharField(max_length=100, verbose_name='Имя пользователя', default='')
+    user_email = models.EmailField(null=True)
     article = models.ForeignKey(to=Article, on_delete=models.CASCADE,
                                 related_name='comments')
     created_at = models.DateTimeField(auto_now_add=True)

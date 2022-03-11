@@ -2,7 +2,9 @@ from django.http import Http404, HttpResponse
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, TemplateView
 
-from apps.blog.models import Article
+from apps.blog.forms import ArticleCommentForm
+from apps.blog.models import Article, ArticleComment
+
 
 # альтернатива для ArticleListView
 # def show_article_list_view(request):
@@ -50,5 +52,13 @@ class ArticleTemplateView(TemplateView):
 
 def add_comment_view(request, pk):
     if request.method == 'POST':
-        print(request.POST)
-        return HttpResponse(content='GOOD!')
+        post_request_data = request.POST  # type dictionary
+        comment_form = ArticleCommentForm(post_request_data)
+        if comment_form.is_valid():
+            ArticleComment.objects.create(text=comment_form.data['text'],
+                                          user_name=comment_form.data['name'],
+                                          user_email=comment_form.data['email'],
+                                          article_id=pk)
+            return HttpResponse(content='КОММЕНТАРИЙ УСПЕШНО ДОБАВЛЕН.')
+        else:
+            return HttpResponse(content=f'Похоже вы неправильно заполнили форму: {comment_form.errors}')
