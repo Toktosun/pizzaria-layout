@@ -132,3 +132,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
+
+EMAIL_HOST_USER = 'toktosun@gmail.com'
+EMAIL_HOST_PASSWORD = 'test-some-password'
