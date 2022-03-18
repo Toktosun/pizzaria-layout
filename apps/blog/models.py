@@ -28,6 +28,13 @@ class ArticleTag(models.Model):
         return self.title
 
 
+class ArticleManager(models.Manager):
+
+    def all_random_order(self):
+        """возвщает отсортированный в рандомном порядке queryset"""
+        return self.order_by('?').all()
+
+
 class Article(models.Model):
     """Публикая для блога"""
 
@@ -38,6 +45,8 @@ class Article(models.Model):
     description = RichTextField(verbose_name='Описание')
     category = models.ForeignKey(to=ArticleCategory, related_name='articles', on_delete=models.CASCADE)
     tags = models.ManyToManyField(to=ArticleTag, related_name='articles')
+
+    objects = ArticleManager()
 
     class Meta:
         verbose_name_plural = 'Публикации'
