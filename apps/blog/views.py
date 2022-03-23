@@ -1,6 +1,5 @@
 from django.http import Http404, HttpResponse
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView, TemplateView, FormView
+from django.views.generic import ListView, TemplateView
 from django.core.mail import send_mail
 from django.conf import settings
 
