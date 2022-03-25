@@ -29,3 +29,8 @@ class CustomUserRegistrationForm(forms.Form):
     email = forms.EmailField(required=True)
     age = forms.IntegerField(required=False)
     password = forms.CharField(required=True)
+
+
+class CustomUserSignInForm(forms.Form):
+    email = forms.EmailField(required=True)
+    password = forms.CharField(max_length=128, required=True)

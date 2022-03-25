@@ -21,7 +21,7 @@ from django.views.generic import TemplateView
 
 from apps.blog.views import ArticleListView, ArticleTemplateView, \
     add_comment_view
-from apps.users.views import user_register_view
+from apps.users.views import user_register_view, user_sign_in_view
 
 urlpatterns = [
     path(r'^ckeditor/', include('ckeditor_uploader.urls')),
@@ -30,6 +30,7 @@ urlpatterns = [
     path('blog/<int:pk>/', ArticleTemplateView.as_view(), name='article-detail-url'),
     path('blog/<int:pk>/comment-add/', add_comment_view, name='add-article-comment-url'),
     path('users/registration/', user_register_view, name='user-registration-url'),
+    path('users/sign-in/', user_sign_in_view, name='sign-in-url'),
 ]
 
 if settings.DEBUG:
